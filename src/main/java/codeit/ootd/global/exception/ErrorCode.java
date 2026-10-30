@@ -36,6 +36,7 @@ public enum ErrorCode {
     CLOTHES_INVALID_CURSOR(HttpStatus.BAD_REQUEST, "커서 또는 조회 개수가 올바르지 않습니다."),
 
     // 팔로우
+    FOLLOW_SELF_NOT_ALLOWED(HttpStatus.BAD_REQUEST, "자기 자신을 팔로우할 수 없습니다."),
     FOLLOW_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "이미 팔로우한 사용자입니다."),
     FOLLOW_USER_NOT_FOUND(HttpStatus.BAD_REQUEST, "팔로우 사용자를 찾을 수 없습니다."),
     FOLLOW_NOT_FOUND(HttpStatus.BAD_REQUEST, "팔로우 관계를 찾을 수 없습니다."),
@@ -45,7 +46,10 @@ public enum ErrorCode {
     FILE_EMPTY(HttpStatus.BAD_REQUEST, "업로드할 파일이 비어 있습니다."),
     FILE_INVALID_TYPE(HttpStatus.BAD_REQUEST, "지원하지 않는 파일 형식입니다. (jpg, jpeg, png, gif, webp)"),
     FILE_TOO_LARGE(HttpStatus.CONTENT_TOO_LARGE, "파일 크기가 너무 큽니다."),
-    FILE_UPLOAD_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "파일 저장에 실패했습니다.");
+    FILE_UPLOAD_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "파일 저장에 실패했습니다."),
+
+    // 추천
+    RECOMMENDATION_WEATHER_NOT_FOUND(HttpStatus.BAD_REQUEST, "추천할 날씨를 찾을 수 없습니다.");
 
 
     private final HttpStatus status;
