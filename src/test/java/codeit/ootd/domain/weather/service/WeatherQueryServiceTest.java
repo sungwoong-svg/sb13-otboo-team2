@@ -56,7 +56,7 @@ class WeatherQueryServiceTest {
     private WeatherQueryService weatherQueryService;
 
     @Test
-    @DisplayName("getWeathers는 최초 수집 권한을 확보한 뒤 예보를 수집하고 5일간 집계한다")
+    @DisplayName("getWeathers는 최초 수집 권한을 확보한 뒤 예보를 수집하고 6일간 집계한다")
     void getWeathersCollectsInitialWeather() {
         double latitude = 37.5665;
         double longitude = 126.9780;
@@ -100,7 +100,7 @@ class WeatherQueryServiceTest {
 
         LocalDate today = LocalDate.of(2026, 10, 28);
 
-        for (int day = 0; day < 5; day++) {
+        for (int day = 0; day < 6; day++) {
             verify(weatherService).calculateAndSaveDailyWeather(
                 location,
                 today.plusDays(day)
