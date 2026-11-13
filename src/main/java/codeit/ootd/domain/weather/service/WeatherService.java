@@ -225,7 +225,7 @@ public class WeatherService {
                 longitude,
                 latitude,
                 longitude,
-                List.of()
+                List.of("위치 정보가 없습니다.")
             );
         }
 

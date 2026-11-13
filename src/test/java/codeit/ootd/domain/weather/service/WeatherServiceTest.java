@@ -537,6 +537,7 @@ class WeatherServiceTest {
 
         assertThat(fallback.latitude()).isEqualTo(latitude);
         assertThat(fallback.longitude()).isEqualTo(longitude);
-        assertThat(fallback.locationNames()).isEmpty();
+        assertThat(fallback.locationNames())
+            .containsExactly("위치 정보가 없습니다.");
     }
 }
