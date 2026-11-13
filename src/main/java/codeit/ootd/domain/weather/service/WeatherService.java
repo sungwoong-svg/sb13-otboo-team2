@@ -19,9 +19,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class WeatherService {
@@ -211,15 +213,30 @@ public class WeatherService {
                 weather -> weather
             ));
 
-        WeatherAPILocation locationDto =
-            weatherLocationService.getLocation(latitude, longitude);
+        WeatherAPILocation locationDto;
+
+        try {
+            locationDto = weatherLocationService.getLocation(latitude, longitude);
+        } catch (RuntimeException e) {
+            log.warn("날씨 위치명 조회 실패, 좌표로 대체: {}", e.toString());
+
+            locationDto = new WeatherAPILocation(
+                latitude,
+                longitude,
+                latitude,
+                longitude,
+                List.of()
+            );
+        }
+
+        WeatherAPILocation finalLocationDto = locationDto;
 
         return weathers.stream()
             .filter(weather -> !weather.getWeatherDate().isBefore(today))
             .map(weather -> weatherDtoMapper.toDto(
                 weather,
                 weatherByDate.get(weather.getWeatherDate().minusDays(1)),
-                locationDto
+                finalLocationDto
             ))
             .toList();
     }
